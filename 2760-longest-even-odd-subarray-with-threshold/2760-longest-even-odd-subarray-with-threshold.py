@@ -14,16 +14,22 @@ class Solution(object):
                 c = 1
 
                 for r in range(l + 1, len(nums)):
-                    if nums[r - 1] % 2 == 0:
-                        if nums[r] % 2 == 1 and nums[r] <= threshold:
-                            c += 1
-                        else:
-                            break
-                    else:
-                        if nums[r] % 2 == 0 and nums[r] <= threshold:
-                            c += 1
-                        else:
-                            break
+                    """
+                    code improvments: 
+                    1. if there has a same condiation in all parts of ifs, like nums[r] <= threshold:
+                        --> move it up and check it first 
+                    2. if there has 2 opposide condition, like nums[r] % 2 == 1 and then nums[r-1] % 2 == 0
+                        --> check if they are differents nums[r] % 2 != nums[r-1] % 2  
+                    """
+                    if nums[r] > threshold:
+                        break 
+                    if nums[r] % 2 == nums[r-1] % 2:
+                        break
+                    
+                    c += 1
+                    
+                    
+                    
         if c > subArray:
             subArray = c
         return subArray
