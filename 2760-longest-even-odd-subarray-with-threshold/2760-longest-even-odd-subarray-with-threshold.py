@@ -25,9 +25,14 @@ class Solution(object):
                         break
                     
                     c += 1
-                    
-                if c > subArray:
-                    subArray = c
+                """
+                code improvements:
+                3. use in Python build in function instead of implemnt your own,
+                    if you want the bigger element of: A, B. 
+                    DONT check it by yourselfe like: if A > B: bigger = A
+                    Do use Python built in function: bigger = max(A, B)
+                """
+                subArray = max(subArray, c)
 
         return subArray
                         
