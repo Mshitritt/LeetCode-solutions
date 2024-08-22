@@ -8,8 +8,6 @@ class Solution(object):
         subArray = 0
         c = 0
         for l in range(len(nums)):
-            if c > subArray:
-                subArray = c
             if nums[l] % 2 == 0 and nums[l] <= threshold:
                 c = 1
 
@@ -28,10 +26,9 @@ class Solution(object):
                     
                     c += 1
                     
-                    
-                    
-        if c > subArray:
-            subArray = c
+                if c > subArray:
+                    subArray = c
+
         return subArray
                         
                         
