@@ -5,26 +5,31 @@ class Solution(object):
         :type threshold: int
         :rtype: int
         """
-        max_len = 0
-        current_len = 0
+        subArray = 0
+        c = 0
+        for l in range(len(nums)):
+            if c > subArray:
+                subArray = c
+            if nums[l] % 2 == 0 and nums[l] <= threshold:
+                c = 1
 
-        for i in range(len(nums)):
-            # Only start counting if the first element is even and within the threshold
-            if nums[i] % 2 == 0 and nums[i] <= threshold:
-                current_len = 1  # Start a new valid subarray
-                
-                # Expand the subarray while meeting the conditions
-                for j in range(i + 1, len(nums)):
-                    if nums[j] > threshold:
-                        break
-                    if nums[j] % 2 == nums[j - 1] % 2:  # If parity does not alternate
-                        break
-                    
-                    current_len += 1
-                
-                max_len = max(max_len, current_len)
+                for r in range(l + 1, len(nums)):
+                    if nums[r - 1] % 2 == 0:
+                        if nums[r] % 2 == 1 and nums[r] <= threshold:
+                            c += 1
+                        else:
+                            break
+                    else:
+                        if nums[r] % 2 == 0 and nums[r] <= threshold:
+                            c += 1
+                        else:
+                            break
+        if c > subArray:
+            subArray = c
+        return subArray
+                        
+                        
 
-        return max_len
 
 
 
