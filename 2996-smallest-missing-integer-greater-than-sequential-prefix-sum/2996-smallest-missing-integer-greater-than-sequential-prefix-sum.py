@@ -24,7 +24,7 @@ class Solution(object):
 
         # case of 1 element in sequence numbers 
         numsRest = nums[endSeqIndex:]
-        if len(numsRest) == len(nums)-1:
+        if endSeqIndex == 1:
             seqSum += 1
             
         while numsRest:
