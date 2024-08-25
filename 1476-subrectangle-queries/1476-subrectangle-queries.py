@@ -14,12 +14,13 @@ class SubrectangleQueries(object):
                 so if you change the value mat[0][0] all the values with index row=0 will be changed 
             in second method the matrix creates row by row separately 
         """
+        """
         self.mat = [[0 for _ in range(colNum)] for _ in range(rowNum)]
         for r in range(rowNum):
             for c in range(colNum):
                 self.mat[r][c] = rectangle[r][c]
-
-        
+        """
+        self.mat = rectangle
 
     def updateSubrectangle(self, row1, col1, row2, col2, newValue):
         """
@@ -30,11 +31,20 @@ class SubrectangleQueries(object):
         :type newValue: int
         :rtype: None
         """
+        """
+        # naive solution 
         for r in range(row1, row2+1):
             for c in range(col1, col2+1):
                 self.mat[r][c] = newValue
         return None 
-        
+        """
+
+        # create inner rectangle
+        newValueMat = [[newValue for _ in range(col2 - col1+1)] for _ in range(row2 - row1+1)]
+
+        # Efficient slice update
+        for i in range(row1, row2 + 1):
+            self.mat[i][col1:col2 + 1] = newValueMat[i - row1]
 
     def getValue(self, row, col):
         """
