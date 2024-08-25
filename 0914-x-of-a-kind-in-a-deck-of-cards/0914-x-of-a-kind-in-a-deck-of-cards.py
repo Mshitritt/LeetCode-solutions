@@ -1,3 +1,4 @@
+import math
 class Solution(object):
     def GCD(self, a, b):
         while b:
