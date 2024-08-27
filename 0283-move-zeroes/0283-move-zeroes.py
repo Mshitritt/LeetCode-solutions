@@ -19,27 +19,16 @@ class Solution(object):
                 nums[r] = temp
 
                 l += 1
-
                 r += 1
-
             elif nums[l] == 0 and nums[r] == 0:
-
                 r += 1
             elif nums[l] != 0 and nums[r] == 0:
                 l += 1
             else:
                 # nums[l] != 0 and nums[r] != 0
                 l += 1
-                
                 r += 1
                 
-            """
-            0, 1, 0, 3, 12 
-            1, 0, 0, 3, 12 
-
-            """
-            
-
         return None 
 
         
