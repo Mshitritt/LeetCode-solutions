@@ -1,28 +1,31 @@
 class Solution:
     def captureForts(self, forts: List[int]) -> int:
-        l = -1
-        r = l + 1
-        captures = 0
-        while r < len(forts):
-            tempCaptures = 0
-            l += 1
-            r = l + 1
-            if forts[l] == 1:
-                while r < len(forts) and forts[r] == 0:
-                    tempCaptures += 1
-                    r += 1
-                if r < len(forts) and forts[r] == -1:
-                    captures = max(tempCaptures, captures)
-            elif forts[l] == -1:
-                while r < len(forts) and forts[r] == 0:
-                    tempCaptures += 1
-                    r += 1
-                if r < len(forts) and forts[r] == 1:
-                    captures = max(tempCaptures, captures)
-            else:
-                pass
+        maxCaptures = 0
+        n = len(forts)
+        i = 0
+        
+        while i < n:
+            # Find the starting fort (either 1 or -1)
+            if forts[i] == 1 or forts[i] == -1:
+                startFort = forts[i]
+                tempCaptures = 0
+                j = i + 1
                 
-        return captures
+                # Check the next positions for zeros until a different fort is found
+                while j < n and forts[j] == 0:
+                    tempCaptures += 1
+                    j += 1
+                
+                # If a different fort is found, update max captures
+                if j < n and forts[j] == -startFort:
+                    maxCaptures = max(maxCaptures, tempCaptures)
+                
+                # Move to the position after the current sequence
+                i = j
+            else:
+                i += 1
+        
+        return maxCaptures
 
 
 
