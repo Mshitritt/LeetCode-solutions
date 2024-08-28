@@ -5,8 +5,9 @@ class Solution:
         captures = 0
         # edge case - empty, one element 
         while r < len(forts):
+            tempCaptures = 0
             if forts[l] == 1:
-                tempCaptures = 0
+                # tempCaptures = 0
                 while r < len(forts) and forts[r] == 0:
                     tempCaptures += 1
                     r += 1
@@ -15,7 +16,7 @@ class Solution:
                 l = r
                 r = l + 1
             elif forts[l] == -1:
-                tempCaptures = 0
+                # tempCaptures = 0
                 while r < len(forts) and forts[r] == 0:
                     tempCaptures += 1
                     r += 1
