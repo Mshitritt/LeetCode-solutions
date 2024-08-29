@@ -3,10 +3,7 @@ class Solution:
         # check how namy elements in s >= g elements 
         # s can be empty 
         """
-        g = [1, 2, 3]
-        s = [1, 1]
-            --> 1
-        """
+        
         g.sort()
         s.sort()
         i_s = len(s)-1
@@ -18,6 +15,18 @@ class Solution:
                 i_s -= 1
             
             i_g -= 1
-                
-            
+
         return count
+        """
+        g.sort(reverse=True)
+        s.sort(reverse=True)
+        i=0
+        j=0
+        c=0
+        while i<len(g) and j<len(s):
+            if g[i]<=s[j]:
+                c+=1
+                j+=1
+            i+=1
+        return c
+
