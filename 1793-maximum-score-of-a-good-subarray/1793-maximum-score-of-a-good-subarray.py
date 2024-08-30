@@ -19,9 +19,7 @@ class Solution:
 
             # Update the minimum and the maximum score
             minimum = min(minimum, nums[i], nums[j])
-            
             max_score = max(max_score, minimum * (j - i + 1))
             
-
         return max_score
                 
