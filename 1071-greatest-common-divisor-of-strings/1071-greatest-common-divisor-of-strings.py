@@ -1,21 +1,19 @@
 import math
 class Solution:
     def gcdOfStrings(self, str1: str, str2: str) -> str:
-        """
-        improve explanation:
-        the old version using I use in split method (O(n)) inside of loop --> total complexity O(n^2)
-
-        in this version we using in regular gcd finction from math
-        """
-        # Check if str1 + str2 == str2 + str1; if not, there's no common divisor
-        if str1 + str2 != str2 + str1:
-            return ""
+        len1, len2 = len(str1), len(str2)
         
-        # Find the greatest common divisor of the lengths of str1 and str2
-        gcd_len = math.gcd(len(str1), len(str2))
+        def valid(k):
+            if len1 % k or len2 % k: 
+                return False
+            n1, n2 = len1 // k, len2 // k
+            base = str1[:k]
+            return str1 == n1 * base and str2 == n2 * base 
         
-        # The largest common divisor string would be the prefix of length gcd_len of str1
-        return str1[:gcd_len]
+        for i in range(min(len1, len2), 0, -1):
+            if valid(i):
+                return str1[:i]
+        return ""
 
 
         
