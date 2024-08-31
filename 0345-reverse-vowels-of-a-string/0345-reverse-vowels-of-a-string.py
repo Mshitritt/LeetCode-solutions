@@ -10,9 +10,7 @@ class Solution:
         l = 0
         r = len(s)-1
         lst = list(s)
-        vowels = []
-        
-        
+
         while l < r:
             if isVowels(lst[l]) and isVowels(lst[r]):
                 lst[l], lst[r] = lst[r], lst[l]
