@@ -21,6 +21,7 @@ class Solution:
                 chars[index] = chars[s_group]
                 index += 1
                 if size_group > 1:
+                    """
                     # write the size of group
                     size_lst = list(str(size_group))
                     i_size = 0  # iterator of size list
@@ -28,6 +29,13 @@ class Solution:
                         chars[i] = size_lst[i_size]
                         i_size += 1
                         index += 1
+                    """
+                    # Write the count if greater than 1
+                    size_group = e_group - s_group
+                    if size_group > 1:
+                        for c in str(size_group):
+                            chars[index] = c
+                            index += 1
 
                 # setting iterators
                 s_group = e_group
