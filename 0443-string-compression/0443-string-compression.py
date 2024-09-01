@@ -42,7 +42,13 @@ class Solution:
                 e_group += 1
                 size_group = 1
 
+        # remove extra elements
+        for i in range(n-1, index-1, -1):
+            chars.pop()
+        """
+        # other option 
         del chars[index:]
+        """
 
         return len(chars)
 
