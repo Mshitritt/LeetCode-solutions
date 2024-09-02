@@ -6,8 +6,8 @@ class Solution:
         avg = summ/k
         
         while e < len(nums):
-            newSum = summ - nums[s-1] + nums[e]
-            avg = max(avg, newSum/k)
+            summ = summ - nums[s-1] + nums[e]
+            avg = max(avg, summ/k)
             s += 1
             e += 1
 
