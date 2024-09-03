@@ -4,10 +4,10 @@ class Solution:
             if l == 'a' or l == 'e' or l == 'i' or l == 'o' or l == 'u':
                 return True
             return False
-
+        vowels = {'a', 'e', 'i', 'o', 'u'}
         countMax = 0
         for i in range(k):
-            if isVowels(s[i]):
+            if s[i] in vowels:
                 countMax += 1
         
         i = k
@@ -16,9 +16,9 @@ class Solution:
             if count == k:
                 return k
             else:
-                if isVowels(s[i-k]):
+                if s[i-k] in vowels:
                     count -= 1
-                if isVowels(s[i]):
+                if s[i] in vowels:
                     count += 1
                 i += 1
                 countMax = max(countMax, count)
