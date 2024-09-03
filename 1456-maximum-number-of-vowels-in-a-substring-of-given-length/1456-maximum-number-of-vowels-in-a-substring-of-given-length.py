@@ -1,9 +1,5 @@
 class Solution:
     def maxVowels(self, s: str, k: int) -> int:
-        def isVowels(l):
-            if l == 'a' or l == 'e' or l == 'i' or l == 'o' or l == 'u':
-                return True
-            return False
         vowels = {'a', 'e', 'i', 'o', 'u'}
         countMax = 0
         for i in range(k):
