@@ -6,28 +6,25 @@ class Solution:
         r = 0
         freq = {}
         most_freq = 0
+        max_len = 0
+
         while r < len(s):
-            window = r - l
-            # count frequency of each element
-            if s[r] in freq:
-                freq[s[r]] += 1
-                most_freq = max(most_freq, freq[s[r]])
-            else:
-                freq[s[r]] = 1
+            # Count frequency of each element
+            freq[s[r]] = freq.get(s[r], 0) + 1
+            # Update the most frequent character count in the current window
+            most_freq = max(most_freq, freq[s[r]])
 
-            # find the most frequency char
-            for key in freq:
-                most_freq = max(most_freq, freq[key])
-
-            # calculate changes
-            curr_changes = window - most_freq + 1
+            # Calculate changes needed
+            window = r - l + 1
+            curr_changes = window - most_freq
 
             if curr_changes > k:
                 freq[s[l]] -= 1
                 l += 1
-                r += 1
-            else:
-                r += 1
 
-        return r - l
+            # Update the maximum length of the valid window
+            max_len = max(max_len, r - l + 1)
+            r += 1
+
+        return max_len
 
