@@ -18,7 +18,7 @@ class Solution:
             else:
                 if isVowels(s[i-k]):
                     count -= 1
-                if isVowels(s[i+k-1]):
+                if isVowels(s[i]):
                     count += 1
                 i += 1
                 countMax = max(countMax, count)
