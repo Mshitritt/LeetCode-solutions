@@ -1,27 +1,21 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        indices = {}
-        left = 0
-        right = len(nums)-1
-        
+        # Dictionary to store the complement and its index
+        num_to_index = {}
+
+        # Iterate through the list of numbers
         for idx, val in enumerate(nums):
-            indices.setdefault(val, []).append(idx)
+            # Calculate the complement needed to reach the target
+            complement = target - val
 
-        nums.sort()
-        while left < right:
-            sm = nums[left] + nums[right]
-            if sm == target:
-                break
-            elif sm < target:
-                left += 1
-            else:
-                right -= 1
+            # If the complement exists in the dictionary, return the indices
+            if complement in num_to_index:
+                return [num_to_index[complement], idx]
+            
+            # Store the current value and its index in the dictionary
+            num_to_index[val] = idx
 
-
-        #resl = []
-        resl = indices[nums[left]] + indices[nums[right]]
-        if len(resl) > 2:
-            return resl[:2]
-        return resl
+        # Return an empty list if no solution is found (shouldn't happen if valid input)
+        return []
 
         
