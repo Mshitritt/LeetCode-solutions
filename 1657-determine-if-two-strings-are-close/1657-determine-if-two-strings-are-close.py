@@ -14,8 +14,7 @@ class Solution:
         d1 = list(word1)
         d2 = list(word2)
 
-        d1.sort()
-        d2.sort()
+        
         if d1 == d2:
             return True
 
