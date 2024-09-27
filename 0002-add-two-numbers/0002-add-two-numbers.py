@@ -5,58 +5,32 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        carry = 0
-        head = l1
-        curr = head
-        while l1 or l2:
-            if l1 and l2:
-                sum_val = l1.val + l2.val + carry
-                if sum_val >= 10:
-                    copy_sum_val = sum_val
-                    sum_val = sum_val % 10
-                    carry = (copy_sum_val - sum_val) // 10
-                else:
-                    carry = 0
-                l1.val = sum_val
+        dummy = ListNode()  # Dummy node to start the result list
+        current = dummy     # Pointer to build the result list
+        carry = 0           # Initialize carry to 0
 
-                if l1.next is None:
-                    curr = l1
-                l1 = l1.next
-                l2 = l2.next
-            elif l1:
-                sum_val = l1.val + carry
-                if sum_val >= 10:
-                    copy_sum_val = sum_val
-                    sum_val = sum_val % 10
-                    carry = (copy_sum_val - sum_val) // 10
-                else:
-                    carry = 0
-                l1.val = sum_val
-                if l1.next is None:
-                    curr = l1
-                l1 = l1.next
-            else:
-                # list2 only
-                sum_val = l2.val + carry
-                if sum_val >= 10:
-                    copy_sum_val = sum_val
-                    sum_val = sum_val % 10
-                    carry = (copy_sum_val - sum_val) // 10
-                else:
-                    carry = 0
+        # Traverse both linked lists
+        while l1 or l2 or carry:
+            # Get the current values, or 0 if the list has been fully traversed
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
 
-                temp = ListNode(sum_val)
-                temp.next = None
-                curr.next = temp
-                curr = curr.next
+            # Calculate the sum and carry
+            total = val1 + val2 + carry
+            carry = total // 10
+            total = total % 10
+
+            # Create a new node for the current sum and attach it to the result list
+            current.next = ListNode(total)
+            current = current.next
+
+            # Move to the next nodes in the input lists if available
+            if l1:
+                l1 = l1.next
+            if l2:
                 l2 = l2.next
 
-        if carry:
-            temp = ListNode(carry)
-            temp.next = None
-            curr.next = temp
-
-        return head
+        return dummy.next
 
                 
 
