@@ -1,19 +1,18 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        """
-        abctadef
-        """
-
+        # Initialize pointers and a set to track unique characters in the current window
         left = 0
-        right = 0
-        curr = set()
-        while right < len(s):
-            if s[right] not in curr and len(curr) == right - left:
-                curr.add(s[right])
-                right += 1
-            else:
+        max_len = 0
+        char_set = set()
+
+        for right in range(len(s)):
+            while s[right] in char_set:
+                char_set.remove(s[left])
                 left += 1
-                right += 1
-                curr = set(s[left: right])
-        return right - left
+           
+            char_set.add(s[right])
+            max_len = max(max_len, right - left + 1)
+            
+        return max_len
+
         
