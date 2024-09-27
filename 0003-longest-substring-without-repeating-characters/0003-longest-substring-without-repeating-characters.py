@@ -3,19 +3,17 @@ class Solution:
         """
         abctadef
         """
+
         left = 0
-        right = 1
+        right = 0
+        curr = set()
         while right < len(s):
-            curr = set(s[left: right])
-            if len(curr) == right - left:
-                # curr is substring
-                if s[right] not in curr:
-                    right += 1
-                else:
-                    right += 1
-                    left += 1
-            else:
+            if s[right] not in curr and len(curr) == right - left:
+                curr.add(s[right])
                 right += 1
+            else:
                 left += 1
+                right += 1
+                curr = set(s[left: right])
         return right - left
         
