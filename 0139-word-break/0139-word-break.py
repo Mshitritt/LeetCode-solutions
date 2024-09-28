@@ -1,19 +1,20 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         n = len(s)
-        dp = [0]*n  #dp[i]=1 indicate s[:i] has valid word break 
+        dp = [False] * (n + 1)
+        dp[0] = True  # Base case: empty string is always segmentable
         
-        for j in range(n):
-            # if s[:j] is word
-            if s[:j+1] in wordDict:
-                dp[j] = 1
-            else:
-                # if s[:j] can be segmented
-                for i in range(j):
-                    if dp[i] and s[i+1:j+1] in wordDict:
-                        dp[j] = 1
-                        break
-        return dp[n-1] == 1
+        word_set = set(wordDict)  # Convert wordDict to a set for fast lookups
+        
+        # Iterate through the string
+        for i in range(1, n + 1):
+            for j in range(i):
+                # Check if substring s[j:i] is in the dictionary and dp[j] is True
+                if dp[j] and s[j:i] in word_set:
+                    dp[i] = True
+                    break
+        
+        return dp[n]
 
 
             
