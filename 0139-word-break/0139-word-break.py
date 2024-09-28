@@ -5,8 +5,8 @@ class Solution:
         
         for j in range(n):
             # if s[:j] is word
-            if s[:j] in wordDict:
-                dp[j-1] = 1
+            if s[:j+1] in wordDict:
+                dp[j] = 1
             else:
                 # if s[:j] can be segmented
                 for i in range(j):
