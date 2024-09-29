@@ -3,10 +3,11 @@ class Solution:
         profit = 0 
         min_num = prices[0]
         for num in prices:
-            profit = max(profit, num - min_num)
-            if num < min_num:
+            if num > min_num:
+                profit = max(profit, num - min_num)
+            else:
                 min_num = num
 
         return profit
-        
+
         
