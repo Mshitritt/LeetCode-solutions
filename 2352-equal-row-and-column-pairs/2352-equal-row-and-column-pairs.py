@@ -1,7 +1,7 @@
 class Solution:
     def equalPairs(self, grid: List[List[int]]) -> int:
-        mapp = {}
-        pairs = 0 
+        mapp = {}   # rows dictionary
+        pairs = 0   # pairs counter
 
         # row counting
         for r in range(len(grid)):
@@ -9,11 +9,15 @@ class Solution:
             for c in range(len(grid[r])):
                 key += str(grid[r][c])+','
 
+            """
+            mapp.setdefault(key, 0) == 0:
+            mapp[key] += 1
+            """
             if mapp.setdefault(key, 0) == 0:
                 mapp[key] = 1
             else:
                 mapp[key] += 1
-
+        # column counting
         for r in range(len(grid)):
             key = ""
             for c in range(len(grid)):
@@ -21,9 +25,7 @@ class Solution:
 
             if key in mapp:
                 pairs += mapp[key]
-            
-
-        # print(mapp)
-        # key_max = max(mapp.keys(), key=lambda k: mapp[k])
+    
         return pairs
+
             
