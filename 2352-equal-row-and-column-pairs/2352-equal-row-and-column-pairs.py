@@ -7,7 +7,7 @@ class Solution:
         for r in range(len(grid)):
             key = ""
             for c in range(len(grid[r])):
-                key += str(grid[r][c])
+                key += str(grid[r][c])+','
 
             if mapp.setdefault(key, 0) == 0:
                 mapp[key] = 1
@@ -17,7 +17,7 @@ class Solution:
         for r in range(len(grid)):
             key = ""
             for c in range(len(grid)):
-                key += str(grid[c][r])
+                key += str(grid[c][r])+','
 
             if key in mapp:
                 pairs += mapp[key]
