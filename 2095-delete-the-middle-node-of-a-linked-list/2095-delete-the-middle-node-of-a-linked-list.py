@@ -5,6 +5,7 @@
 #         self.next = next
 class Solution:
     def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # IMPROVE SOLUTION !!!!!!!!!
         count = 0 
         head_copy = head
         while head:
