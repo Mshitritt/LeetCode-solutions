@@ -5,44 +5,34 @@
 #         self.next = next
 class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
-        # count the leangth of list
-        count = 0
-        head_copy = head
-
-        while head:
-            count += 1
-            head = head.next
-        if count == 2:
-            return head_copy.val + head_copy.next.val
-        mid = (count + 1) // 2
-        mid_c = mid
-        # revers the second half
-        prev = head_copy
-        curr = prev.next
-        while curr:
-            if mid > 0:
-                prev = curr
-                curr = prev.next
-            else:
-                temp = curr.next
+        # Helper function to reverse the second half of the list
+        def reverse_list(head: ListNode) -> ListNode:
+            prev = None
+            curr = head
+            while curr:
+                next_node = curr.next
                 curr.next = prev
                 prev = curr
-                if temp is None:
-                    break
-                curr = temp
+                curr = next_node
+            return prev
 
-            mid -= 1
+        # Step 1: Use two pointers to find the middle of the list
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
 
-        # search for max sun twin
-        max_twin = -float('inf')
-        curr_right = curr
-        curr_left = head_copy
-        while mid_c > 0:
-            max_twin = max(max_twin, curr_right.val + curr_left.val)
-            mid_c -= 1
-            curr_right = curr_right.next
-            curr_left = curr_left.next
+        # Step 2: Reverse the second half of the list
+        second_half = reverse_list(slow)
 
-        return max_twin
+        # Step 3: Compare the values from the first half and reversed second half
+        max_twin_sum = 0
+        first_half = head
+        while second_half:
+            max_twin_sum = max(max_twin_sum, first_half.val + second_half.val)
+            first_half = first_half.next
+            second_half = second_half.next
+
+        return max_twin_sum
 
         
