@@ -7,7 +7,10 @@ class Solution:
         def get_hours(piles, k):
             hourse = 0
             for pile in piles:
-                hourse += (pile + k - 1) // k
+                hourse += pile // k
+                if pile % k != 0:
+                    hourse += 1
+
             return hourse
 
         
