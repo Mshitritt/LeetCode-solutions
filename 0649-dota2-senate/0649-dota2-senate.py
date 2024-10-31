@@ -18,10 +18,6 @@ class Solution:
             else:
                 r_queue.append(r+n)
                 
-
-
-
-
         if d_queue:
             return "Dire"
         else:
