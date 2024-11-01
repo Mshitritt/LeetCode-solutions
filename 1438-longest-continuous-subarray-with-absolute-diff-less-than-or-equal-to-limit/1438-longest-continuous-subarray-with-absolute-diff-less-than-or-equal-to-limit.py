@@ -1,5 +1,11 @@
 class Solution:
     def longestSubarray(self, nums: List[int], limit: int) -> int:
+        """
+        NOTICE!! 
+            this problem is very hard to understand 
+            I can understand why the code is working 
+            but don't fully clear 
+        """
         left = 0
         max_len = 1
         n = len(nums)
