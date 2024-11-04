@@ -12,7 +12,6 @@ class Solution:
             if len(min_heap) > k:
                 n = heapq.heappop(min_heap)
                 n1Sum -= n
-                count -= 1
             if len(min_heap) == k:
                 res = max(res, n1Sum * n2)
         return res
