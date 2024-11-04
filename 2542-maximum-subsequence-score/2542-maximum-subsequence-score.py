@@ -6,19 +6,13 @@ class Solution:
         min_heap = []
         n1Sum = 0
         res = 0
-        count = 0
         for n1, n2 in pairs:
-            count += 1
             n1Sum += n1
             heapq.heappush(min_heap, n1)
-            if count > k:
+            if len(min_heap) > k:
                 n = heapq.heappop(min_heap)
                 n1Sum -= n
                 count -= 1
-            if count == k:
+            if len(min_heap) == k:
                 res = max(res, n1Sum * n2)
-        return res
-
-
-
         return res
