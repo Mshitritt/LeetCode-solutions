@@ -3,30 +3,43 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
-        rows = len(board)
-        cols = len(board[0])
-        direction = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-        for r in range(1, rows-1):
-            for c in range(1, cols-1):
-                if board[r][c] == "O":
-                    serround = 0
-                    for dr, dc in direction:
-                        idr = r+dr
-                        idc = c+dc
-                        if 0 <= idr < rows and 0 <= idc < cols and board[idr][idc] == "X":
-                            serround += 2
-                    if serround >= 2:
-                        board[r][c] = "X"
-                        q = deque()
-                        q.append((r, c))
-                        while q:
-                            curr = q.popleft()
-                            for dr, dc in direction:
-                                idr = curr[0]+dr
-                                idc = curr[1]+dc
-                                if 0 <= idr < rows and 0 <= idc < cols and board[idr][idc] == "O":
-                                    q.append((idr, idc))
-                                    board[idr][idc] = "X"
+        if not board or not board[0]:
+            return
 
+        m, n = len(board), len(board[0])
+        visited = [[False] * n for _ in range(m)]
+
+        # Helper function to perform DFS and collect cells in the current region
+        def dfs(x, y):
+            if x < 0 or x >= m or y < 0 or y >= n or board[x][y] != 'O' or visited[x][y]:
+                return
+            visited[x][y] = True
+            region.append((x, y))  # Collect the cell in the current region
+            # Perform DFS in all four directions
+            dfs(x + 1, y)
+            dfs(x - 1, y)
+            dfs(x, y + 1)
+            dfs(x, y - 1)
+
+        # Iterate through the board to find regions of 'O'
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == 'O' and not visited[i][j]:
+                    region = []  # Collect cells in the current region
+                    dfs(i, j)
+                    
+                    # Check if the region touches the boundary
+                    is_surrounded = True
+                    for x, y in region:
+                        if x == 0 or x == m - 1 or y == 0 or y == n - 1:
+                            is_surrounded = False
+                            break
+                    
+                    # If the region is surrounded, turn all 'O's in the region to 'X'
+                    if is_surrounded:
+                        for x, y in region:
+                            board[x][y] = 'X'
+                
+                    
 
         
