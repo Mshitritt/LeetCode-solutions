@@ -21,7 +21,7 @@ class Solution:
         def lca(root, p, q):
             if not root:
                 return None
-            if root == p or root == q:
+            if (root.val == p.val) or (root.val == q.val):
                 return root
             
             left = lca(root.left, p, q)
