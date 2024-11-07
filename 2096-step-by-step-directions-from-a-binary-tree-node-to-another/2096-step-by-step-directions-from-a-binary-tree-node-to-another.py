@@ -21,6 +21,8 @@ class Solution:
             if helper(node.right, target, arr):
                 arr.append('R')
                 return True
+            return False
+            
         
         helper(root, startValue, path_s)
         helper(root, destValue, path_d)
