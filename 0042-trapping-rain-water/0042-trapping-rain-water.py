@@ -10,14 +10,14 @@ class Solution:
         while l <= r:
             if maxL <= maxR:
                 # move left
-                #water = maxL - height[l]
-                res += max(maxL - height[l], 0)
+                water = maxL - height[l]
+                res += max(water, 0)
                 maxL = max(maxL, height[l])
                 l += 1
             else:
                 # right move
-                #water = maxR - height[r]
-                res += max(maxR - height[r], 0)
+                water = maxR - height[r]
+                res += max(water, 0)
                 maxR = max(maxR, height[r])
                 r -= 1
                 
