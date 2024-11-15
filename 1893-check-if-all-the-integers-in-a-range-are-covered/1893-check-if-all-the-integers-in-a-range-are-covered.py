@@ -1,12 +1,16 @@
 class Solution:
     def isCovered(self, ranges: List[List[int]], left: int, right: int) -> bool:
+        # Step 1: Create a boolean array of size 51 to mark coverage
+        covered = [False] * 51
+
+        # Step 2: Mark the numbers covered by each interval in ranges
+        for start, end in ranges:
+            for num in range(start, end + 1):
+                covered[num] = True
+
+        # Step 3: Check if all numbers from left to right are covered
         for num in range(left, right + 1):
-            # Check if num is covered by any range in ranges
-            covered = False
-            for start, end in ranges:
-                if start <= num <= end:
-                    covered = True
-                    break  # No need to check further ranges for this num
-            if not covered:
-                return False  # If any number is not covered, return False
-        return True  # All numbers are covered
+            if not covered[num]:
+                return False
+
+        return True
