@@ -1,26 +1,27 @@
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        
+        newNums = []
+        for num in nums:
+            newNums.append(num)
+
+        for num in nums:
+            newNums.append(num)
+
         numsIdx = defaultdict(list)
-        for idx, val in enumerate(nums):
-            numsIdx[val].append(idx)
+        for idx, val in enumerate(newNums):
+            numsIdx[val].append(idx % len(nums))
 
         res = [-1]*len(nums)
         stack = []
-        for i in range(len(nums)):
-            curr = nums[i]
+        for i in range(len(newNums)):
+            curr = newNums[i]
             while stack and stack[-1] < curr:
                 num = stack.pop(-1)
                 idx = numsIdx[num].pop(0)
-                res[idx] = curr
+                if res[idx] == -1:
+                    res[idx] = curr
             
             stack.append(curr)
-
-        
-        for i in range(len(nums)):
-            if res[i] == -1 and stack and stack[0] > nums[i]:
-                res[i] = stack.pop(0)
-                
-                
-        
         
         return res
