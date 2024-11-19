@@ -1,7 +1,8 @@
 class Solution:
     def hasIncreasingSubarrays(self, nums: List[int], k: int) -> bool:
+        
         n = len(nums)
-        is_increasing = [False] * (n - k + 1)
+        valid_end = set()
 
         # Check if each subarray of size k is strictly increasing
         for start in range(n - k + 1):
@@ -10,11 +11,11 @@ class Solution:
                 if nums[i] >= nums[i + 1]:
                     strictly_increasing = False
                     break
-            is_increasing[start] = strictly_increasing
+            if strictly_increasing:
+                if (start-1) in valid_end:
+                    return True
+                valid_end.add(start+k-1)
 
-        # Check for two consecutive True values in is_increasing
-        for i in range(len(is_increasing)-k):
-            if is_increasing[i] and is_increasing[i + k]:
-                return True
+        
 
         return False
