@@ -11,14 +11,12 @@ class Solution:
         
         r = 0
         res = 0
-        give = 0
         for r in range(k):
             f = candies[r]
-            if give < k:
-                flavors[f] -= 1
-                if flavors[f] == 0:
-                    keep -= 1
-                    del flavors[f]
+            flavors[f] -= 1
+            if flavors[f] == 0:
+                keep -= 1
+                del flavors[f]
 
         res = keep
         for r in range(k, len(candies)):
