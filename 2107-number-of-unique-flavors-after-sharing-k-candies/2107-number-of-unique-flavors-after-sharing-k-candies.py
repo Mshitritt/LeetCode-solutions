@@ -1,11 +1,9 @@
 class Solution:
     def shareCandies(self, candies: List[int], k: int) -> int:
-        keep = 0
         flavors = {}
         for f in candies:
             if f not in flavors:
                 flavors[f] = 1
-                keep += 1
             else:
                 flavors[f] += 1
         
@@ -15,21 +13,18 @@ class Solution:
             f = candies[r]
             flavors[f] -= 1
             if flavors[f] == 0:
-                keep -= 1
                 del flavors[f]
 
-        res = keep
+        res = len(flavors)
         for r in range(k, len(candies)):
             flavors[candies[r]] -= 1
             if flavors[candies[r]] == 0:
                 del flavors[candies[r]]
-                keep -= 1
 
             oldF = candies[r-k]
             if oldF not in flavors:
-                keep += 1
                 flavors[oldF] = 1
-                res = max(res, keep)
+                res = max(res, len(flavors))
             else:
                 flavors[oldF] += 1
         return res
