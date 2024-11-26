@@ -1,26 +1,16 @@
 class Solution:
     def lastStoneWeightII(self, stones: List[int]) -> int:
-        stoneSum = sum(stones)
-        target = ceil(stoneSum / 2)
-
-        def dfs(i, total):
-            if total >= target or i == len(stones):
-                return abs(total - (stoneSum - total))
-            if (i, total) in dp:
-                print(f'{(i, total)}')
-                return dp[(i, total)]
-
-            withNum = dfs(i +1, total + stones[i])
-            withoutNum = dfs(i+1, total)
-            dp[(i, total)]=min(withNum, withoutNum)
-            
-            return dp[(i, total)]
-
-        dp = {}
+        total_sum = sum(stones)
+        target = total_sum // 2
         
-        ans = dfs(0, 0)
-        """
-        for key in dp:
-            print(f'{key} - {dp[key]}')
-            """
-        return ans
+        dp = [False] * (target + 1)
+        dp[0] = True
+        
+        for stone in stones:
+            for j in range(target, stone - 1, -1):
+                dp[j] = dp[j] or dp[j - stone]
+        
+       
+        for j in range(target, -1, -1):
+            if dp[j]:
+                return total_sum - 2 * j
