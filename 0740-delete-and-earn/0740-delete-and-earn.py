@@ -7,7 +7,7 @@ class Solution:
             return nums[0]*freq[nums[0]]
         dp = [-1]*(maxNum+1)
         dp[0] = 0
-        
+        self.res = 0
         def rec(i):
             if i > maxNum:
                 return 0
@@ -19,21 +19,19 @@ class Solution:
                 a = dp[i+1]
             else:
                 a = rec(i+1)
-                if i+1 < maxNum:
-                    dp[i+1] = a
             if i + 2 < maxNum and dp[i+2] != -1:
                 b = dp[i+2]
-                if i+2 < maxNum:
-                    dp[i+2] = b
             else:
                 b = rec(i+2)
 
             c = (freq[i] * i)
-            return max(a, b+c)
+            dp[i] = max(a, b+c)
+            self.res = max(self.res, dp[i])
+            return dp[i]
         
         for i in range(1, maxNum):
             dp[i] = rec(i)
-        return max(dp)
+        return self.res
 
         """
         if not nums:
