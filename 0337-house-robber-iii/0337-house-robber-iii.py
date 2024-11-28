@@ -6,18 +6,22 @@
 #         self.right = right
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
-        # include = True if prev node isn't got thief
-        def rec(node, include):
+        # Helper function to return (not_robbed, robbed) for each node
+        def dp(node):
             if not node:
-                return 0
+                return (0, 0)  # (not_robbed, robbed)
             
-            if include:
-                return node.val + rec(node.left, False) + rec(node.right, False)
-            else:
-                left = max(rec(node.left, True), rec(node.left, False))
-                right = max(rec(node.right, True), rec(node.right, False))
-                return left + right
+            # Solve for left and right children
+            left = dp(node.left)
+            right = dp(node.right)
+            
+            # If the current node is not robbed, take the max of its children
+            not_robbed = max(left) + max(right)
+            
+            # If the current node is robbed, its children can't be robbed
+            robbed = node.val + left[0] + right[0]
+            
+            return (not_robbed, robbed)
         
-        s1 = rec(root, True)
-        s2 = rec(root, False)
-        return max(s1, s2)
+        # Get the result from the root
+        return max(dp(root))
