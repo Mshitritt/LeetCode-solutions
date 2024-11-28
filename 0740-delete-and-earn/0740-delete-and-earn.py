@@ -1,6 +1,37 @@
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
+        # freq = {} # Keep count of all frequencies
+        # for n in nums:
+        #     if n not in freq:
+        #         freq[n] = 1
+        #     else:
+        #         freq[n] += 1
+        freq = Counter(nums)
+
+        # Remove duplicates and sort the array
+        nums = list(set(nums))
+        nums.sort()
         
+        # Store the result of dp[i-1], and dp[i-2]
+        prevprev, prev = 0, nums[0] * freq[nums[0]]
+        # Go through all the numbers
+        for i in range(1, len(nums)):
+            # Get earnings of deleting this number
+            curr = nums[i] * freq[nums[i]]
+            # If we can just delete this without problem just add earnings
+            if nums[i] > nums[i-1] + 1:
+                curr += prev
+            else: # Choice between deleting this + dp[i-2] or not deleting and just dp[i-1]
+                curr += prevprev
+                curr = max(curr, prev)
+            
+            # Update dp
+            prevprev = prev
+            prev = curr
+        
+        # Return last dp value
+        return prev
+        """
         maxNum = max(nums)
         freq = Counter(nums)
         if len(freq) == 1:
@@ -32,7 +63,7 @@ class Solution:
         for i in range(1, maxNum):
             dp[i] = rec(i)
         return self.res
-
+        """
         """
         if not nums:
             return 0
