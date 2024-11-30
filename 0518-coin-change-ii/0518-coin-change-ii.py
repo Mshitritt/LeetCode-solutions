@@ -1,9 +1,17 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
+        dp=[0]*(amount+1)
+        dp[0]=1
+        for coin in coins:
+            for i in range(coin, amount+1):
+                dp[i]=dp[i]+dp[i-coin]
+        return dp[amount]
+        
+        """
         dp = [[0 for _ in range(amount+1)] for _ in range(2)]
         
-        for i in range(2):
-            dp[i][0] = 1
+        dp[0][0] = 1
+        dp[1][0] = 1
         
         for a in range(amount+1):
             if a-coins[0] >= 0:
@@ -25,6 +33,7 @@ class Solution:
             
         
         return dp[0][amount]
+        """
 
             
 
