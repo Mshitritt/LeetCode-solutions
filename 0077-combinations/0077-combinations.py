@@ -3,8 +3,7 @@ class Solution:
         perm = []
         res = []
         def rec(i):
-            nonlocal perm
-            nonlocal res
+            
             if len(perm) == k:
                 res.append(perm.copy())
                 return
