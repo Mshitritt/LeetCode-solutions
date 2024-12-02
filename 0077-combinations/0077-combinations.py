@@ -15,5 +15,6 @@ class Solution:
             perm.pop()
             rec(i+1)
             
-            return res
-        return rec(1)
+            
+        rec(1)
+        return res
