@@ -10,10 +10,9 @@ class Solution:
             else:
                 b_count += 1
         
-        if not a_count or not b_count:
-            return 0
         
-        res = float('inf')
+        
+        res = min(a_count, b_count)
         
         a_curr = 0
         b_curr = 0
@@ -26,6 +25,8 @@ class Solution:
                 b_curr += 1
             
             a_right = a_count - a_curr
+            #b_left = b_curr
+
             res = min(res, b_curr + a_right)
         return res
 
