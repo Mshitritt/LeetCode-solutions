@@ -6,6 +6,7 @@ class Solution:
             2. added to cuurent shelf 
             return the minimum high of each option 
         """
+        """
         def minHeightShelves(self, books: List[List[int]], shelfWidth: int) -> int:
             # Cache to store previous computations
             memo = [[0 for _ in range(shelfWidth + 1)] for _ in range(len(books))]
@@ -47,3 +48,28 @@ class Solution:
                     option_1_height, option_2_height
                 )
                 return memo[i][remaining_shelf_width]
+        """
+        def minHeightShelves(self, books: List[List[int]], shelfWidth: int) -> int:
+            memo = {}
+
+            def rec(i):
+                if i >= len(books):
+                    return 0 
+                if i in memo:  
+                    return memo[i]
+
+                mxhight = 0
+                remainWidht = shelfWidth
+                res = float('inf')
+
+                for j in range(i, len(books)): 
+                    if remainWidht < books[j][0]:
+                        break  
+                    mxhight = max(mxhight, books[j][1])
+                    remainWidht -= books[j][0]
+                    res = min(res, mxhight + rec(j + 1))
+                
+                memo[i] = res
+                return res
+
+            return rec(0)
