@@ -1,15 +1,10 @@
 class Solution:
     def canChange(self, start: str, target: str) -> bool:
-        l_count_start = start.count('L')
-        r_count_start = start.count('R')
-        l_count_target = target.count('L')
-        r_counter_target = target.count('R')
+        
         # edge case 1
-        if l_count_start != l_count_target or r_count_start != r_counter_target:
+        if start.count('L') != target.count('L') or start.count('R') != target.count('R'):
             return False
-        
-       
-        
+
         si, ti = 0, 0
         n = len(start)
         while si < n and ti < n:
