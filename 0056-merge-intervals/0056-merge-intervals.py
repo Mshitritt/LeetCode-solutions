@@ -1,17 +1,30 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        intervals.sort()
+        interval_sorted = sorted(intervals, key=lambda x: x[0])
         res = []
-        prevS, prevE = intervals[0]
+        n = len(intervals)
+        i = 1
+        start = interval_sorted[0][0]
+        end = interval_sorted[0][1]
 
-        for s, e in intervals:
-            if s <= prevE:
-                # overlapping 
-                prevE = max(prevE, e)
+        while i < n:
+            curr = interval_sorted[i]
+            if curr[0] <= end:
+                # overlapped interval
+                if curr[1] > end:
+                    end = curr[1]
+                i += 1
             else:
-                # no overlapping
-                res.append([prevS, prevE])
-                prevS, prevE = s, e
-        
-        res.append([prevS, prevE])
+                res.append([start, end])
+                start = curr[0]
+                end = curr[1]
+                i += 1
+        res.append([start, end])
         return res
+            
+
+
+            
+            
+
+        
