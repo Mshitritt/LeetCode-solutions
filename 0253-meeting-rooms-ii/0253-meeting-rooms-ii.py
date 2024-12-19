@@ -1,22 +1,19 @@
 class Solution:
-    import heapq
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        inter = sorted(intervals, key=lambda x: x[0])
-        rooms = 1
-        i = 1
-        n = len(inter)
-        heap = [inter[0][1]]
-        while i < n:
-            curr = inter[i]
-            if curr[0] < heap[0]:
-                rooms += 1
-                
-                
-            else:
-                if heap:
-                    heapq.heappop(heap)
-            
-            heapq.heappush(heap, curr[1])
-            i += 1
-        return rooms
-        
+        # Step 1: Sort intervals by start time
+        intervals.sort(key=lambda x: x[0])
+
+        # Step 2: Min-heap to track end times
+        import heapq
+        heap = []
+
+        for start, end in intervals:
+            # Step 3: Remove meetings that have ended
+            if heap and heap[0] <= start:
+                heapq.heappop(heap)
+
+            # Step 4: Add current meeting's end time
+            heapq.heappush(heap, end)
+
+        # Step 5: The size of the heap is the number of rooms required
+        return len(heap)
