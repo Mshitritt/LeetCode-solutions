@@ -10,20 +10,20 @@ class MyCalendar:
             self.inter.append([startTime, endTime])
             return True
         else:
-            # insert first
-            if endTime < self.inter[0][0]:
-                self.inter.insert(0, [startTime, endTime])
-                return True
-            else:
-                for s, e in self.inter:
-                    # Check for overlap
-                    if not (endTime <= s or startTime >= e):
-                        return False
+            for i, (s, e) in enumerate(self.inter):
+                # check for overlapping
+                if startTime < e and endTime > s:
+                    return False
+                
+                # check if found place
+                if endTime <= s:
+                    self.inter.insert(i, [startTime, endTime])
+                    return True
+            
+            self.inter.append([startTime, endTime])
+            return True
+                
 
-                # No overlap; find the correct position to insert
-                self.inter.append([startTime, endTime])
-                self.inter.sort()  # Keep the intervals sorted
-                return True
 
 
 
