@@ -6,22 +6,19 @@ class MyCalendar:
     
 
     def book(self, startTime: int, endTime: int) -> bool:
-        if not self.inter:
-            self.inter.append([startTime, endTime])
-            return True
-        else:
-            for i, (s, e) in enumerate(self.inter):
-                # check for overlapping
-                if startTime < e and endTime > s:
-                    return False
-                
-                # check if found place
-                if endTime <= s:
-                    self.inter.insert(i, [startTime, endTime])
-                    return True
+        for i, (s, e) in enumerate(self.inter):
+            # check for overlapping
+            if startTime < e and endTime > s:
+                return False
             
-            self.inter.append([startTime, endTime])
-            return True
+            # check if found place
+            if endTime <= s:
+                self.inter.insert(i, [startTime, endTime])
+                return True
+        
+        self.inter.append([startTime, endTime])
+        return True
+        
                 
 
 
