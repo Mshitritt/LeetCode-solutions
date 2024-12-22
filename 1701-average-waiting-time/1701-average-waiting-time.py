@@ -3,7 +3,7 @@ class Solution:
         res = 0
         wait = 0
         finish = customers[0][0]
-        prev = customers[0][1]
+
         for arr, t in customers:
             wait = max(0, finish-arr)
             res += wait + t
