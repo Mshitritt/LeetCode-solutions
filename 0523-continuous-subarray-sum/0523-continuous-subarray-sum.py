@@ -6,7 +6,7 @@ class Solution:
         for i, num in enumerate(nums):
 
             prefix = (prefix + num) % k
-            if prefix in hash_map or prefix == 0:
+            if prefix in hash_map:
                 # Check if subarray length is at least 2
                 if i - hash_map[prefix] > 1:
                     return True
