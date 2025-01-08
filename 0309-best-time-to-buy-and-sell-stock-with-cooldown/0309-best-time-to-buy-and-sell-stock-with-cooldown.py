@@ -11,16 +11,16 @@ class Solution:
             if (i, buy) in dp:
                 return dp[(i, buy)]
             
+            keep = dfs(i+1, buy)
             if buy:
-                buy = dfs(i+1, 0) - prices[i]
-                keep = dfs(i+1, 1)
-                dp[(i, buy)] = max(buy, keep)
-                return dp[(i, buy)]
+                buying = dfs(i+1, 0) - prices[i]
+                dp[(i, buy)] = max(buying, keep)
+                
             else:
                 sell = dfs(i+2, 1) + prices[i]
-                keep = dfs(i+1, 0)
                 dp[(i, buy)] = max(sell, keep)
-                return dp[(i, buy)]
+                
+            return dp[(i, buy)]
 
         
         return dfs(0, 1) 
