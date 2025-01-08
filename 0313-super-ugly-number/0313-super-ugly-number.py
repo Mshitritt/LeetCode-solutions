@@ -1,20 +1,27 @@
 class Solution:
     def nthSuperUglyNumber(self, n: int, primes: List[int]) -> int:
-        uglies = primes.copy()
-        idx = [0]*len(primes)
-        res = [1]*(n)
+        # Use heap to efficiently get minimum value
+        from heapq import heappush, heappop
 
-        for i in range(1, n):
-            curr = min(uglies)
-            res[i] = curr
-            # states 
-            for j, ugly in enumerate(uglies):
-                if ugly == curr:
-                    factor = primes[j]
-                    idx[j] += 1
-                    uglies[j] = res[idx[j]]*factor
-        return res[n-1]
-
+        ugly = [1]
+        heap = []
+        
+        # Initialize heap with first multiples
+        for prime in primes:
+            heappush(heap, (prime, prime, 0))  # (value, prime, index)
+        
+        # Generate n-1 more ugly numbers
+        while len(ugly) < n:
+            next_ugly, prime, index = heappop(heap)
+            
+            # Skip duplicates
+            if next_ugly != ugly[-1]:
+                ugly.append(next_ugly)
+            
+            # Push next multiple
+            heappush(heap, (prime * ugly[index + 1], prime, index + 1))
+        
+        return ugly[-1]
 
 
 
