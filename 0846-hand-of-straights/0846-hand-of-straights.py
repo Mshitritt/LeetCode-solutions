@@ -6,6 +6,8 @@ class Solution:
 
         
         for c in cards:
+            if freq[c] == 0:
+                continue
             while freq[c]:
                 for i in range(c, c + groupSize):
                     if i not in freq:
