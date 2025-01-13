@@ -1,10 +1,12 @@
 class Solution:
     def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+        # Write explanation Tommorow 
+        # Write the GPT trick 
+        # Solve similar problems of this problem
         
         freq = Counter(hand)
         cards = sorted(list(freq.keys()))
 
-        
         for c in cards:
             if freq[c] == 0:
                 continue
