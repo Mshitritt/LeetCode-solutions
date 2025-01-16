@@ -5,31 +5,24 @@ class Solution:
         bisect_left(nums, nums[i]-1, 0, i)
         """
  
-        nums.sort()
+        nums.sort()  # Step 1: Sort the array
         n = len(nums)
-        if n == 1:
-            return
-        sml, lrg = 0, n//2
-        while nums[sml] == nums[lrg]:
-            lrg += 1
 
-        for i in range(1, n):
-            if i % 2 == 0:
-                # num[i] is small
-                if nums[i-1] < nums[i]:
-                    nums[i-1], nums[i] = nums[i], nums[i-1]
-                elif nums[i-1] == nums[i]:
-                    # find small value
-                    j = bisect_right(nums, nums[i]+1, i+1, n-1)
-                    nums[j], nums[i] = nums[i], nums[j]
-            else:
-                #  num[i] is larg
-                if nums[i-1] > nums[i]:
-                    nums[i-1], nums[i] = nums[i], nums[i-1]
-                elif nums[i-1] == nums[i]:
-                    # find large value
-                    j = bisect_right(nums, nums[i]+1, i+1, n-1)
-                    nums[j], nums[i] = nums[i], nums[j]
+        # Step 2: Split into two halves and reverse both halves
+        mid = (n + 1) // 2  # First half length
+        smaller_half = nums[:mid][::-1]  # Reverse first half
+        larger_half = nums[mid:][::-1]  # Reverse second half
+
+        # Step 3: Interleave both halves
+        i = 0
+        for s, l in zip(smaller_half, larger_half):
+            nums[i] = s  # Place in even index
+            nums[i + 1] = l  # Place in odd index
+            i += 2
+
+        # Step 4: Handle the last remaining element for odd-length arrays
+        if n % 2 == 1:
+            nums[-1] = smaller_half[-1]
                 
 
         
