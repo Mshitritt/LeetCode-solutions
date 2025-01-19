@@ -36,8 +36,6 @@ class Solution:
         # compute max gap
         maxGap = 0
         prevBucket = 0
-        while bucket[prevBucket] == [-1, -1]:
-            prevBucket += 1
         currBucket = prevBucket + 1
 
         while currBucket < k:
