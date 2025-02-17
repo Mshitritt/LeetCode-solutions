@@ -10,9 +10,6 @@ class Solution:
         self.seen = set()
         self.start = -1
         self.parents = [-1]*len(edges)
-        seenVAL = self.seen
-        startVAL = self.start
-        parentsArray = self.parents
        
         def dfs(node):
             self.seen.add(node)
@@ -20,7 +17,7 @@ class Solution:
                 if adj not in self.seen:
                     self.parents[adj] = node
                     dfs(adj)
-                elif adj != self.parents[node] and self.start == -1:
+                elif adj != self.parents[node]:
                     self.start = adj
                     self.parents[adj] = node
 
@@ -37,10 +34,7 @@ class Solution:
             node = self.parents[node]
             if node == self.start:
                 break
-            
 
-
-        
         # find the last edge
         for s, e in edges[::-1]:
             if s-1 in cycle and e-1 in cycle:
