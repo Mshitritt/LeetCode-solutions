@@ -7,22 +7,22 @@ class Solution:
             graph[e-1].append(s-1)
         
         # Dfs function 
-        self.seen = set()
-        self.start = -1
-        self.parents = [-1]*len(edges)
+        seen = set()
+        self.start = -1 # numbers stored LOCALLY ! 
+        parents = [-1]*len(edges)
        
         def dfs(node):
-            self.seen.add(node)
+            seen.add(node)
             for adj in graph[node]:
-                if adj not in self.seen:
-                    self.parents[adj] = node
+                if adj not in seen:
+                    parents[adj] = node
                     dfs(adj)
-                elif adj != self.parents[node]:
+                elif adj != parents[node] and self.start == -1:
                     self.start = adj
-                    self.parents[adj] = node
+                    parents[adj] = node
 
         for node in graph.keys():
-            if node not in self.seen:
+            if node not in seen:
                 dfs(node)
 
         
@@ -31,7 +31,7 @@ class Solution:
         node = self.start
         while True:
             cycle.add(node)
-            node = self.parents[node]
+            node = parents[node]
             if node == self.start:
                 break
 
