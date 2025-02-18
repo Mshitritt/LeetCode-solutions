@@ -17,7 +17,7 @@ class Solution:
                 if adj not in seen:
                     parents[adj] = node
                     dfs(adj)
-                elif adj != parents[node] and self.start == -1:
+                elif adj != parents[node]:
                     self.start = adj
                     parents[adj] = node
 
