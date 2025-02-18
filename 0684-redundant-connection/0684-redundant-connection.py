@@ -1,45 +1,32 @@
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        # Graph building 
         graph = defaultdict(list)
-        for s, e in edges:
-            graph[s-1].append(e-1)
-            graph[e-1].append(s-1)
         
-        # Dfs function 
-        seen = set()
-        self.start = -1 # numbers stored LOCALLY ! 
-        parents = [-1]*len(edges)
-       
-        def dfs(node):
-            seen.add(node)
-            for adj in graph[node]:
-                if adj not in seen:
-                    parents[adj] = node
-                    dfs(adj)
-                elif adj != parents[node]:
-                    self.start = adj
-                    parents[adj] = node
+        def dfs(node, target, visited, parent):
+            """Returns True if a path exists from node to target (cycle detection)."""
+            if node == target:
+                return True  # Cycle detected
+            visited.add(node)
+            
+            for neighbor in graph[node]:
+                if neighbor == parent:  # Skip the parent node (to prevent false cycles)
+                    continue
+                if neighbor not in visited and dfs(neighbor, target, visited, node):
+                    return True  # Found a cycle
+            
+            return False
 
-        for node in graph.keys():
-            if node not in seen:
-                dfs(node)
+        # Process edges one by one and check for cycles
+        for u, v in edges:
+            visited = set()
+            if u in graph and v in graph and dfs(u, v, visited, -1):
+                return [u, v]  # This edge creates a cycle
+            
+            # Add edge to graph (only if no cycle was found)
+            graph[u].append(v)
+            graph[v].append(u)
 
-        
-        # collect cycle's nodes
-        cycle = set()
-        node = self.start
-        while True:
-            cycle.add(node)
-            node = parents[node]
-            if node == self.start:
-                break
-
-        # find the last edge
-        for s, e in edges[::-1]:
-            if s-1 in cycle and e-1 in cycle:
-                return [s,e]
-
+        return []
 
 
 
