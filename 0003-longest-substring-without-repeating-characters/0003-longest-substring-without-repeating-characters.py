@@ -1,18 +1,27 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        # Initialize pointers and a set to track unique characters in the current window
-        left = 0
-        max_len = 0
-        char_set = set()
+        if not s:
+            return 0
 
-        for right in range(len(s)):
-            while s[right] in char_set:
-                char_set.remove(s[left])
-                left += 1
-           
-            char_set.add(s[right])
-            max_len = max(max_len, right - left + 1)
-            
-        return max_len
-
+        l = 0
+        freq = {}
+        res = 1
         
+        for r in range(len(s)):
+            curr = s[r]
+            if curr not in freq:
+                freq[curr] = 1
+                res = max(res, r-l+1)
+            else:
+                freq[curr] += 1
+                while freq[curr] > 1:
+                    freq[s[l]] -= 1
+                    if not freq[s[l]]:
+                        del freq[s[l]]
+                    l += 1
+        return res
+
+
+
+
+
