@@ -1,23 +1,44 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        # using in heap 
-        frequency = Counter(s)
-        sorted_counter = dict(frequency.most_common())
-        keys = list(sorted_counter.keys())
-        n = len(s)
-        if sorted_counter[keys[0]] > (n + 1)//2:
+        if len(s) == 1:
+            return s
+        
+        freq = Counter(s)
+        
+        maxL, maxVal = s[0], 1
+        for l, val in freq.items():
+            if val > maxVal:
+                maxVal = val
+                maxL = l
+        if maxVal > (len(s) + 1) // 2:
             return ""
+        
+        res = [""]*len(s)
+        i = 0 
 
-        res = ['0'] * n
-        pos = 0
-        for key in keys:
-            while sorted_counter[key]:
-                if pos >= n:
-                    pos = 1
-                sorted_counter[key] -= 1
-                res[pos] = key
-                pos += 2
+        # place the most common character 
+        while freq[maxL]:
+            res[i] = maxL
+            freq[maxL] -= 1
+            i += 2
+        
 
+        # place other characters 
+        for l, val in freq.items():
+            while val:
+                if i >= len(s):
+                    i = 1
+                res[i] = l
+                i += 2
+                val -= 1
+
+        
         return "".join(res)
-        
-        
+
+
+
+
+
+
+
+
