@@ -1,57 +1,34 @@
 class Solution:
-    
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = {}
-        countCourses = 0
-        for src, des in prerequisites:
-            if src == des:
-                return False
-            if src not in adj:
-                countCourses += 1
-                adj[src] = [des]
-            else:
-                adj[src].append(des)
-            
-            if des not in adj:
-                countCourses += 1
-                adj[des] = []
+        graph = defaultdict(list)
 
-        b = {}
-        f = {}
-        visited = set()
-        time = [0]
-
-        def DFS(node):
-            visited.add(node)
-            time[0] += 1
-            b[node] = time[0]
-            for v in adj[node]:
-                if v not in visited:
-                    DFS(v)
-
-            time[0] += 1
-            f[node] = time[0]
-
-        for node in adj:
-            if node not in visited:
-                DFS(node)
-        circle = set()
-        for src, des in prerequisites:
-            if b[src] > b[des] and f[src] < f[des]:
-                circle.add(src)
-                circle.add(des)
-            
-        for i in range(numCourses):
-            if i in circle:
-                return False
-
+        for a, b in prerequisites:
+            graph[b].append(a)
         
-        
-        return True
+        seen = set()
+        instack = set()
 
+        def dfs(i):
+            if i in instack:
+                return False    # detect cycle
+            if i in seen:       # the node is processed
+                return True
 
-
-
+            instack.add(i)
+            for adj in graph[i]:
+                if not dfs(adj):
+                    return False
                 
+            instack.remove(i)
+            seen.add(i)
+            return True
 
 
+
+
+        for i in range(numCourses):
+            if i not in seen and not dfs(i):
+                return False
+            
+        return True
+                    
