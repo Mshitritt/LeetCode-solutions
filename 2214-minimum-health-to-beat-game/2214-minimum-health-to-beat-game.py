@@ -10,4 +10,5 @@ class Solution:
             health += num
             maxDemage = max(maxDemage, num)
 
-        return health - min(armor, maxDemage)
+        #return health - min(armor, maxDemage)
+        return sum(damage) - min(armor, max(damage)) +1
