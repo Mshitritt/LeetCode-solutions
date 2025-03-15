@@ -1,20 +1,19 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        memo = {}
-        self.n = len(nums)
-
-        def rec(idx, currSum):
-            if (idx, currSum) in memo:
-                return memo[(idx, currSum)]
-            
-            if idx == len(nums):
-                return 1 if currSum == target else 0
-            
-            plus = rec(idx+1, currSum + nums[idx])
-            minus = rec(idx+1, currSum - nums[idx])
-            
-            memo[(idx, currSum)] = plus + minus
-            return memo[(idx, currSum)]
+        total = abs(sum(nums))
         
-        sol = rec(0, 0)
-        return sol
+        # no have solution
+        if ((target + total) % 2) or total < target:
+            return 0
+        
+        plus = (target + total) // 2
+        dp = [0] * (plus + 1)
+        dp[0] = 1   # plus == 0
+
+        for num in nums:
+            for p in range(plus, num-1, -1):
+                dp[p] += dp[p - num]
+        
+        return dp[plus]
+
+
