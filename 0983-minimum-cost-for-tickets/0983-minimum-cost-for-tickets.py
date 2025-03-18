@@ -1,24 +1,18 @@
 class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
-        dp = {}
+        dp = [float('inf')] * (days[-1]+1)
+        dp[0] = 0
+        # dp[i] = min cost for day i-1
+        travel = set(days)
         
-        def rec(i):
-            if i == len(days):
-                return 0
-            if i in dp:
-                return dp[i]
-            
-            dp[i] = float('inf')
-            for d, c in zip([1, 7, 30], costs):
-                nxtDay = days[i] + d
-                j = i
-                while j < len(days) and days[j] < nxtDay:
-                    j += 1
-                dp[i] = min(dp[i], c + rec(j))
-                    
-            return dp[i]
-        
-        return rec(0)
+        for d in range(1,days[-1] + 1):
+            for t, c in zip([1, 7, 30], costs):
+                if d in travel:
+                    if d-t >= 0:
+                        dp[d] = min(dp[d], c + dp[d-t])
+                    else:
+                        dp[d] = min(dp[d], c)
+                else:
+                    dp[d] = dp[d-1]
 
-            
-        
+        return dp[days[-1]]
