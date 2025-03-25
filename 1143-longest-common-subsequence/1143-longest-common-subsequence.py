@@ -10,8 +10,7 @@ class Solution:
                     dp[r][c] = dp[r-1][c-1] + 1
                 else:
                     dp[r][c] = max(dp[r][c-1], dp[r-1][c])
-        for r in dp:
-            print(r)
+
         return dp[rows][cols]
         
         
