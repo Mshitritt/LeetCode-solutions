@@ -4,24 +4,18 @@ class Solution:
         Solving by LCS algorithem 
         take s and reverse s and run LCS
         """
-        dp = {}
-
-        def LCS(i1, i2):
-            if i1 >= n or i2 >= n:
-                return 0
-            if (i1, i2) in dp:
-                return dp[(i1, i2)]
-            
-            if s1[i1] == s2[i2]:
-                dp[(i1, i2)] = LCS(i1+1, i2+1) + 1
-                return dp[(i1, i2)]
-            else:
-                lcs1 = LCS(i1+1, i2)
-                lcs2 = LCS(i1, i2+1)
-                dp[(i1, i2)] = max(lcs1, lcs2)
-                return dp[(i1, i2)]
-        
+        rv = s[::-1]
         n = len(s)
-        s1 = s
-        s2 = s[::-1]
-        return LCS(0, 0)
+        if n < 2:
+            return n
+        dp = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
+
+        for r in range(1, n + 1):
+            l1 = s[r-1]
+            for c in range(1, n + 1):
+                l2 = rv[c-1]
+                if l1 == l2:
+                    dp[r][c] = 2 + dp[r-1][c-1]
+                else:
+                    dp[r][c] = min(dp[r-1][c], dp[r][c-1])
+        return dp[n][n]
