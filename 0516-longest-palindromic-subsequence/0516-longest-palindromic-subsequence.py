@@ -6,8 +6,7 @@ class Solution:
         """
         rv = s[::-1]
         n = len(s)
-        if n < 2:
-            return n
+
         dp = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
 
         for r in range(1, n + 1):
@@ -15,7 +14,7 @@ class Solution:
             for c in range(1, n + 1):
                 l2 = rv[c-1]
                 if l1 == l2:
-                    dp[r][c] = 2 + dp[r-1][c-1]
+                    dp[r][c] = 1 + dp[r-1][c-1]
                 else:
-                    dp[r][c] = min(dp[r-1][c], dp[r][c-1])
+                    dp[r][c] = max(dp[r-1][c], dp[r][c-1])
         return dp[n][n]
