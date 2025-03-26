@@ -3,9 +3,6 @@ class Solution:
         dp = [[0 for _ in range(1+len(word1))] for _ in range(1+len(word2))]
         rows, cols = len(word2), len(word1)
         
-        # counters
-        letters = set()
-
         for c in range(1, cols+1):
             dp[0][c] = dp[0][c-1] + 1
         for r in range(1, rows+1):
