@@ -1,5 +1,22 @@
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
+        # GPT enhance 
+        n = len(s)
+        rv = s[::-1]
+        dp = [0] * (n + 1)
+
+        for i in range(1, n + 1):
+            prev = 0  # Like dp[j-1] from the previous row
+            for j in range(1, n + 1):
+                temp = dp[j]
+                if s[i - 1] == rv[j - 1]:
+                    dp[j] = 1 + prev
+                else:
+                    dp[j] = max(dp[j], dp[j - 1])
+                prev = temp
+
+        return dp[n]
+        """
         # LCS version
         rv = s[::-1]
         n = len(s)
@@ -14,7 +31,7 @@ class Solution:
             curr, prev = prev, curr
         
         return prev[n]
-        
+        """
         """
         # Memoization version
         dp = {}
