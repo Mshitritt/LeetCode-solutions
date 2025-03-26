@@ -4,7 +4,7 @@ class Solution:
         rv = s[::-1]
         n = len(s)
 
-        prev, curr = [1]*(n+1), [1]*(n+1)
+        prev, curr = [0]*(n+1), [0]*(n+1)
         for i in range(1, n+1):
             for j in range(1, n+1):
                 if s[i-1] == rv[j-1]:
@@ -12,7 +12,8 @@ class Solution:
                 else:
                     curr[j] = max(curr[j-1], prev[j])
             curr, prev = prev, curr
-        return prev[n]-1
+        
+        return prev[n]
         
         """
         # Memoization version
