@@ -1,20 +1,38 @@
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
-        """
-        Solving by LCS algorithem 
-        take s and reverse s and run LCS
-        """
+        # LCS version
         rv = s[::-1]
         n = len(s)
 
-        dp = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
-
-        for r in range(1, n + 1):
-            l1 = s[r-1]
-            for c in range(1, n + 1):
-                l2 = rv[c-1]
-                if l1 == l2:
-                    dp[r][c] = 1 + dp[r-1][c-1]
+        prev, curr = [1]*(n+1), [1]*(n+1)
+        for i in range(1, n+1):
+            for j in range(1, n+1):
+                if s[i-1] == rv[j-1]:
+                    curr[j] = 1 + prev[j-1]
                 else:
-                    dp[r][c] = max(dp[r-1][c], dp[r][c-1])
-        return dp[n][n]
+                    curr[j] = max(curr[j-1], prev[j])
+            curr, prev = prev, curr
+        return prev[n]-1
+        
+        """
+        # Memoization version
+        dp = {}
+        n = len(s)
+
+        # i - start, j - end
+        def rec(i, j):
+            if (i, j) in dp:
+                return dp[(i, j)]
+            if j < i or i >= n or j < 0:
+                return 0
+            if i == j:
+                return 1
+
+            if s[i] == s[j]:
+                dp[(i, j)] = 2 + rec(i+1, j-1)
+            else:
+                dp[(i, j)] = max(rec(i+1, j), rec(i, j-1))
+            return dp[(i, j)]
+
+        return rec(0, n-1)
+        """
