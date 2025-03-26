@@ -1,5 +1,6 @@
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
+        """
         # GPT enhance 
         n = len(s)
         rv = s[::-1]
@@ -17,6 +18,7 @@ class Solution:
 
         return dp[n]
         """
+        """
         # LCS version
         rv = s[::-1]
         n = len(s)
@@ -32,6 +34,21 @@ class Solution:
         
         return prev[n]
         """
+        # memo version enhance by GPT
+        n = len(s)
+
+        @lru_cache(maxsize=None)
+        def dp(i, j):
+            if j < i:
+                return 0
+            if i == j:
+                return 1
+            if s[i] == s[j]:
+                return 2 + dp(i + 1, j - 1)
+            return max(dp(i + 1, j), dp(i, j - 1))
+
+        return dp(0, n - 1)
+
         """
         # Memoization version
         dp = {}
