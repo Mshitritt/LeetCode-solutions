@@ -1,6 +1,7 @@
 class Solution:
     def minimumSubstringsInPartition(self, s: str) -> int:
-
+        def valid(d):
+            return len(set(d.values())) == 1 
 
         n = len(s)
         dp = [float('inf')] * (n + 1)
@@ -10,7 +11,7 @@ class Solution:
             freq = defaultdict(int)
             for j in range(i, 0, -1):  # Start index, reverse to reuse freq
                 freq[s[j - 1]] += 1
-                if len(set(freq.values())) == 1 :
+                if valid(freq):
                     dp[i] = min(dp[i], dp[j - 1] + 1)
 
         return dp[n]
