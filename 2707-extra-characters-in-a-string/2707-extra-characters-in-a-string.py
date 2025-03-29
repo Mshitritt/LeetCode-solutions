@@ -1,5 +1,6 @@
 class Solution:
     def minExtraChar(self, s: str, dictionary: List[str]) -> int:
+        dictionary = set(dictionary)
         n = len(s)
         dp = [float('inf')]*(n + 1)
         dp[0] = 0
