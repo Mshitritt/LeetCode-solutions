@@ -17,9 +17,11 @@ class Solution:
             else:
                 if length != 0:
                     length = lps[length - 1]  # backtrack
+                    print(i)
                 else:
                     lps[i] = 0
                     i += 1
+                
         i = 0 # haystack
         j = 0 # needle
         while i < len(haystack):
