@@ -4,6 +4,6 @@ class Solution:
         for i in range(1, len(intervals)):
             currS, _ = intervals[i]
             _, prevE = intervals[i-1]
-            if currS <= prevE:
+            if currS < prevE:
                 return False
         return True
